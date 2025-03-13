@@ -18,4 +18,12 @@ class MessageComponent < ViewComponent::Base
   def timestamp
     message_created_at.strftime("%Y-%m-%d at %H:%M")
   end
+
+  def message_classes
+    class_names(
+      "mr-10",
+      "text-green-500" => recent_message?,
+      "text-gray-500" => !recent_message?
+    )
+  end
 end
