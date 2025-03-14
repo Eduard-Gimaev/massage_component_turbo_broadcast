@@ -9,6 +9,7 @@ class MessagesController < ApplicationController
     @message = Message.new(body: params[:body])
     if @message.save
       Broadcast::Message.append(message: @message)
+      @messages = Message.all 
       respond_to do |format|
         format.html { redirect_to messages_path }
         format.turbo_stream
@@ -23,6 +24,10 @@ class MessagesController < ApplicationController
 
   def destroy
     @message.destroy
+    respond_to do |format|
+    format.html { redirect_to messages_path }
+    format.turbo_stream
+  end
   end
 
   private

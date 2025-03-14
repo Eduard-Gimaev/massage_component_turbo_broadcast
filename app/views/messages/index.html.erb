@@ -2,13 +2,11 @@
   <div class="max-w-2xl w-full bg-white p-6 rounded-lg shadow-md">
     <%= render "form" %>
 
-    <div data-controller="message-counter">
-      <h3 class="text-xl font-bold my-0 text-left">
-          <%= render MessageCounterComponent.new(messages: @messages) %>
+      <h3 id="message_counter" class="text-xl font-bold my-0 text-left">
+        <%= render MessageCounterComponent.new(messages: @messages) %>
       </h3>
-    </div>  
 
-      <div id="messages" data-action="turbo:render->message-counter#updateCount">
+      <div id="messages">
         <%= render MessageComponent.with_collection(@messages) %>
       </div>
   </div>
