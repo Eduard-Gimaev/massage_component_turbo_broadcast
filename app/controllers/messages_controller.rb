@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+  before_action :find_message, only: %i[edit update destroy]
+
   def index
     @messages = Message.all
   end
@@ -12,5 +14,20 @@ class MessagesController < ApplicationController
         format.turbo_stream
       end
     end
+  end
+
+  def edit
+  end
+  def update
+  end
+
+  def destroy
+    @message.destroy
+  end
+
+  private
+
+  def find_message
+    @message = Message.find(params[:id])
   end
 end

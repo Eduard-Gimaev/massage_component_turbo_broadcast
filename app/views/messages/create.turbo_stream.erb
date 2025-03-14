@@ -3,3 +3,9 @@
 <%= turbo_stream.append "messages" do %>
   <%= render MessageComponent.new(message: @message) %>
 <% end %>
+
+<turbo-stream action="replace" target="message_counter">
+  <template>
+    <%= render MessageCounterComponent.new(messages: Message.all) %>
+  </template>
+</turbo-stream>

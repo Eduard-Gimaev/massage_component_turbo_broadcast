@@ -1,4 +1,11 @@
-<%= tag.div(id: dom_id(message), class: "py-3 border-b-2 border-gray-200") do %>
+<%= tag.div(id: dom_id(message), class: "py-3 border-b-2 border-gray-200 relative") do %>
   <%= tag.div(message_body, class: message_classes) %>
   <%= tag.time(timestamp, class: "block text-xs text-gray-400 mt-1") %>
+  <div class="absolute bottom-0 right-0 mb-1 mr-1 flex space-x-2">
+    <%= link_to "✏️", edit_message_path(message), 
+                class: "text-blue-500 hover:text-blue-700" %>
+    <%= link_to "🗑️", message_path(message), method: :delete, 
+                                            data: { turbo_confirm: "Are you sure?" }, 
+                                            class: "text-red-500 hover:text-red-700" %>
+  </div>
 <% end %>

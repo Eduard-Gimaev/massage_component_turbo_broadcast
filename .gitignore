@@ -45,3 +45,6 @@ package-lock.json
 
 # Ignore environment files
 .env
+
+# Ignore macOS system files
+.DS_Store
