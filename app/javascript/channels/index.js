@@ -1,2 +1,4 @@
+console.log("channels/index.js loaded")
+
 import "channels/consumer"
-import "./messages_channel"
+import "channels/messages_channel"
