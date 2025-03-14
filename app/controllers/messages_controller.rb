@@ -8,7 +8,6 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(body: params[:body])
     if @message.save
-      Broadcast::Message.append(message: @message)
       @messages = Message.all 
       respond_to do |format|
         format.html { redirect_to messages_path }
