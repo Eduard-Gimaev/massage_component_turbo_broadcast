@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(body: params[:body])
     if @message.save
-      @messages = Message.all 
+      @messages = Message.all
       respond_to do |format|
         format.html { redirect_to messages_path }
         format.turbo_stream
@@ -24,9 +24,9 @@ class MessagesController < ApplicationController
   def destroy
     @message.destroy
     respond_to do |format|
-    format.html { redirect_to messages_path }
-    format.turbo_stream
-  end
+      format.html { redirect_to messages_path }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@message) }
+    end
   end
 
   private
