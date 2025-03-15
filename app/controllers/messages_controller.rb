@@ -1,6 +1,5 @@
 class MessagesController < ApplicationController
   before_action :find_message, only: %i[edit update destroy]
-  after_action :publish_message, only: %i[create update destroy]
 
   def index
     @messages = Message.all
@@ -9,7 +8,7 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(body: params[:body])
     if @message.save
-      @messages = Message.all
+      Broadcast::Message.append(message: @message)
       respond_to do |format|
         format.html { redirect_to messages_path }
         format.turbo_stream
@@ -24,9 +23,11 @@ class MessagesController < ApplicationController
 
   def destroy
     @message.destroy
+    @messages = Message.all
+    Broadcast::Message.remove(message: @message)
     respond_to do |format|
       format.html { redirect_to messages_path }
-      format.turbo_stream { render turbo_stream: turbo_stream.remove(@message) }
+      format.turbo_stream
     end
   end
 
@@ -36,9 +37,4 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:id])
   end
 
-  def publish_message
-    ActionCable.server.broadcast("messages", {
-      message: render_to_string(component: MessageComponent.new(message: @message))
-    })
-  end
 end
