@@ -11,5 +11,7 @@ consumer.subscriptions.create("MessagesChannel", {
 
   received(data) {
     console.log(data)
+    const messages = document.getElementById('messages')
+    messages.insertAdjacentHTML('beforeend', data['message'])
   }
 })

@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   before_action :find_message, only: %i[edit update destroy]
+  after_action :publish_message, only: %i[create update destroy]
 
   def index
     @messages = Message.all
@@ -33,5 +34,11 @@ class MessagesController < ApplicationController
 
   def find_message
     @message = Message.find(params[:id])
+  end
+
+  def publish_message
+    ActionCable.server.broadcast("messages", {
+      message: render_to_string(component: MessageComponent.new(message: @message))
+    })
   end
 end
