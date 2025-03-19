@@ -16,12 +16,23 @@ module Broadcast
       )
     end
 
+    def self.remove(message:)
+      new(message).remove
+    end
+
+    def remove
+      Turbo::StreamsChannel.broadcast_remove_to(
+        :messages,
+        target: "message_#{message.id}"
+      )
+    end
+
     private
 
     attr_reader :message
 
     def rendered_component
-      ApplicationController.render(
+      ApplicationController.renderer.render(
         MessageComponent.new(message: message),
         layout: false
       )

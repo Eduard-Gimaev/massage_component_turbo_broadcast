@@ -1,0 +1,7 @@
+<%= turbo_stream.remove dom_id(@message) %>
+
+<%= turbo_stream.replace "message_counter" do %>
+  <h3 class="text-xl font-bold my-0 text-left">
+    <%= render MessageCounterComponent.new(messages: @messages) %>
+  </h3>
+<% end %>
