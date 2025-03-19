@@ -48,3 +48,6 @@ package-lock.json
 
 # Ignore macOS system files
 .DS_Store
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

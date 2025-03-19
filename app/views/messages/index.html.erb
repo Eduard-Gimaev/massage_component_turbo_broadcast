@@ -1,15 +1,14 @@
-
 <%= turbo_stream_from "messages" %>
-<div class="flex justify-center min-h-screen bg-gray-100">
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
   <div class="max-w-2xl w-full bg-white p-6 rounded-lg shadow-md">
     <%= render "form" %>
 
-      <h3 id="message_counter" class="text-xl font-bold my-0 text-left">
-        <%= render MessageCounterComponent.new(messages: @messages) %>
-      </h3>
+    <h3 id="message_counter" class="text-xl font-bold my-0 text-left">
+      <%= render MessageCounterComponent.new(messages: @messages) %>
+    </h3>
 
-      <div id="messages">
-        <%= render MessageComponent.with_collection(@messages) %>
-      </div>
+    <div id="messages">
+      <%= render MessageComponent.with_collection(@messages) %>
+    </div>
   </div>
 </div>
